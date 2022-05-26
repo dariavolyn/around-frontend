@@ -5,7 +5,7 @@
     margin: 0;
     padding: 0;
     text-overflow: ellipsis;
-    white-space: normal;
+    white-space: nowrap;
     overflow: hidden;
     max-width: calc(100% - 21px);
 }

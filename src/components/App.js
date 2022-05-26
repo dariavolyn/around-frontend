@@ -79,7 +79,8 @@ function App(props) {
                 )
                 .catch((e) => console.log(e))
         }
-    }, [])
+    }, [history])
+    
 
     // logging in
     function handleLogin({ email, password }) {
@@ -99,6 +100,7 @@ function App(props) {
         setUserData({});
         setLoggedIn(false);
     }
+
 
     // cards
     useEffect(() => {

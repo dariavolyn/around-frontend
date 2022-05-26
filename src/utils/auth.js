@@ -8,7 +8,7 @@ class Auth {
         return res.ok ? res.json() : console.log(`Error: ${res.status}`)
     }
 
-    registerUser({ email, password }) {
+    registerUser(email, password) {
         return fetch(`${this.baseUrl}/signup`, {
             method: "POST",
             headers: {
@@ -17,10 +17,10 @@ class Auth {
             },
             body: JSON.stringify({ email, password })
         })
-        .then(this._checkResponse)
+            .then(this._checkResponse)
     }
 
-    authorizeUser({ email, password }) {
+    authorizeUser(email, password) {
         return fetch(`${this.baseUrl}/signin`, {
             method: "POST",
             headers: {
@@ -55,7 +55,7 @@ class Auth {
 }
 
 const auth = new Auth({
-    baseUrl: "about.students.nomoreparties.sbs"
-}) 
+    baseUrl: 'https://api.myaround.students.nomoreparties.sbs'
+})
 
 export default auth;

@@ -77,7 +77,7 @@ class Api {
 }
 
 const api = new Api({
-    baseUrl: 'about.students.nomoreparties.sbs',
+    baseUrl: 'https://api.myaround.students.nomoreparties.sbs',
     headers: {
         "Content-Type": "application/json"
     }
