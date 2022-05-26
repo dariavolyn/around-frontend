@@ -1,0 +1,18 @@
+@import url('./__button/header__button.css');
+@import url('./__email/header__email.css');
+@import url('./__nav-wrapper/header__nav-wrapper.css');
+.header {
+    margin: 0 0 36px 0;
+    padding: 45px 0 0 0;
+    border-bottom: 1px solid rgba(54, 54, 54, 0.7);
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    position: relative;
+}
+
+@media screen and (max-width: 320px) {
+    .header {
+        padding-top: 28px;
+    }
+}

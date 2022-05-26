@@ -1,0 +1,24 @@
+.auth-form__input {
+    margin: 30px 0 0 0;
+    padding: 0 0 13px 0;
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-weight: normal;
+    border-bottom: 2px #CCCCCC solid;
+    background-color: black;
+    color:  white;
+}
+
+.auth-form__input::placeholder {
+    color: #C4C4C4;
+}
+
+.auth-form__input:focus {
+    outline-width: 0;
+}
+
+.auth-form__input:first-of-type {
+    margin-top: 0;
+}

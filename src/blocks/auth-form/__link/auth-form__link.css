@@ -1,0 +1,14 @@
+.auth-form__link {
+    color: white;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+}
+
+.auth-form__link:hover {
+    opacity: 0.8;
+}

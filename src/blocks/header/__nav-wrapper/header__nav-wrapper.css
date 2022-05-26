@@ -1,0 +1,7 @@
+.header__nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    margin: 5px 0 0 0;
+    padding: 0;
+}
