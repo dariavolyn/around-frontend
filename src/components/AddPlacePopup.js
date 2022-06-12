@@ -2,7 +2,6 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 function AddPlacePopup(props) {
-
     const newCardNameRef = React.useRef();
     const newCardPicRef = React.useRef();
 
