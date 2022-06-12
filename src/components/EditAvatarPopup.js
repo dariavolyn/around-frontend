@@ -2,7 +2,6 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 function EditAvatarPopup(props) {
-
     const updateAvatarRef = React.useRef();
 
     function handleSubmit(e) {
@@ -10,7 +9,7 @@ function EditAvatarPopup(props) {
 
         props.onUpdateAvatar({
             avatar: updateAvatarRef.current.value,
-        });
+        })
     }
     return (
         <PopupWithForm title='Change profile picture' type='edit-avatar' isOpen={props.isOpen} buttonText='Save' onClose={props.onClose} onSubmit={handleSubmit}>

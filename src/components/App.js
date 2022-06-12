@@ -17,7 +17,7 @@ import { ProtectedRoute } from './ProtectedRoute.js';
 import Register from './Register.js';
 
 
-function App(props) {
+function App() {
     const [addPlacePopupOpen, setIsAddPlaceOpen] = useState(false);
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
@@ -31,8 +31,9 @@ function App(props) {
     const history = useHistory();
 
     // currentUser
-    React.useEffect(() => {
-        api.getUserInfo()
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        api.getUserInfo(token)
             .then((res) => {
                 setCurrentUser({
                     ...currentUser,
@@ -48,6 +49,19 @@ function App(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // checking token
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            auth.getContent(token)
+                .then((res) => {
+                    setLoggedIn(true);
+                    history.push('/main');
+                    setUserData(res);
+                })
+                .catch((e) => console.log(e))
+        }
+    }, [history])
 
     // registering user
     function handleRegister({ email, password }) {
@@ -66,21 +80,6 @@ function App(props) {
             })
     }
 
-    // checking token
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            auth.getContent(token)
-                .then((res) => {
-                    setLoggedIn(true);
-                    setUserData(res.data);
-                    history.push('/main');
-                }
-                )
-                .catch((e) => console.log(e))
-        }
-    }, [history])
-    
 
     // logging in
     function handleLogin({ email, password }) {
@@ -104,20 +103,22 @@ function App(props) {
 
     // cards
     useEffect(() => {
-        api.getCardsList()
+        const token = localStorage.getItem('token');
+        api.getCardsList(token)
             .then((res) => {
                 setCards(res)
             })
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }, [userData]);
 
     function handleCardLike(card) {
+        const token = localStorage.getItem('token');
         const isLiked = card.likes.some(i => i._id === currentUser._id);
 
         if (!isLiked) {
-            api.addLike(card._id)
+            api.addLike(token, card._id)
                 .then((newCard) => {
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
                 })
@@ -126,7 +127,7 @@ function App(props) {
                 })
         }
         else {
-            api.deleteLike(card._id)
+            api.deleteLike(token, card._id)
                 .then((newCard) => {
                     setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
                 })
@@ -137,8 +138,8 @@ function App(props) {
     }
 
     function handleCardDelete(card) {
-        api
-            .removeCard(card._id)
+        const token = localStorage.getItem('token');
+        api.removeCard(card._id, token)
             .then(() => {
                 const updatedList = cards.filter((c) => c._id !== card._id);
                 setCards(updatedList);
@@ -179,7 +180,8 @@ function App(props) {
     }
 
     function handleUpdateUser(newUser) {
-        api.setUserInfo({ name: newUser.name, about: newUser.about })
+        const token = localStorage.getItem('token');
+        api.setUserInfo(token, { name: newUser.name, about: newUser.about })
             .then((res) => {
                 setCurrentUser({
                     ...currentUser,
@@ -194,11 +196,13 @@ function App(props) {
     }
 
     function handleUpdateAvatar(newUser) {
-        api.setUserPic({ avatar: newUser.avatar })
-            .then(() => {
+        const token = localStorage.getItem('token');
+        api.setUserPic(token, { avatar: newUser.avatar })
+            .then((res) => {
+                console.log(res);
                 setCurrentUser({
                     ...currentUser,
-                    avatar: newUser.avatar
+                    avatar: newUser.avatar,
                 })
             })
             .then(closeAllPopups)
@@ -208,7 +212,8 @@ function App(props) {
     }
 
     function handleAddPlaceSubmit(card) {
-        api.addCard({ name: card.name, link: card.link })
+        const token = localStorage.getItem('token');
+        api.addCard(token, { name: card.name, link: card.link })
             .then((card) => {
                 setCards([card, ...cards])
             })
